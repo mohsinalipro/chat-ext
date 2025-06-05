@@ -61,6 +61,7 @@ Download a model with `ollama pull llama3` (or any model you like) and use these
 - **API Type**: `Ollama (local)`
 - **API URL**: `http://localhost:11434`
 - **Model Name**: name of the model you pulled (e.g. `llama3`)
+- Requests are sent to the `/api/chat` endpoint as described in [these API docs](https://medium.com/@kevinnjagi83/exploring-ollama-rest-api-endpoints-7029fae5630d)
 
 If you want to use an LLM from Hugging Face API Inference, you can use the following:
 
