@@ -53,7 +53,7 @@ docker run --runtime nvidia --gpus 2 \
 For a lightweight setup you can run [Ollama](https://ollama.com/) locally:
 
 ```
-ollama serve &
+ollama serve --cors &
 ```
 
 Download a model with `ollama pull llama3` (or any model you like) and use these settings in the extension:
@@ -61,7 +61,10 @@ Download a model with `ollama pull llama3` (or any model you like) and use these
 - **API Type**: `Ollama (local)`
 - **API URL**: `http://localhost:11434`
 - **Model Name**: name of the model you pulled (e.g. `llama3`)
+- **API Token**: *leave blank*
 - Requests are sent to the `/api/chat` endpoint as described in [these API docs](https://medium.com/@kevinnjagi83/exploring-ollama-rest-api-endpoints-7029fae5630d)
+
+Make sure to start Ollama with the `--cors` flag so the extension can connect from the browser.
 
 If you want to use an LLM from Hugging Face API Inference, you can use the following:
 

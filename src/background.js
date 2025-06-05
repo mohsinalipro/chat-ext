@@ -60,8 +60,9 @@ async function sendToAPI(content) {
 
       return { success: true, message: chatCompletion.choices[0].message.content.trim() };
     } catch (error) {
-      return { 
-        success: false, 
+      console.error('API request error:', error);
+      return {
+        success: false,
         error: error.message
       };
     } finally {
