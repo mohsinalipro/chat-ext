@@ -32,6 +32,8 @@ async function sendToAPI(content) {
           throw new Error('Model name is not configured. Please open settings and configure the model name.');
         }
         apiUrl = `https://api-inference.huggingface.co/models/${settings.modelName}`;
+      } else if (settings.apiType === 'ollama') {
+        apiUrl = apiUrl || 'http://localhost:11434';
       } else if (!apiUrl) {
         throw new Error('API URL is not configured. Please open settings and configure the API URL.');
       }
@@ -42,7 +44,8 @@ async function sendToAPI(content) {
 
       const client = new Client({
         apiKey: settings.apiToken,
-        baseURL: apiUrl
+        baseURL: apiUrl,
+        apiType: settings.apiType
       });
 
       const chatCompletion = await client.chat.completions.create({

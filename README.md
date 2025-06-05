@@ -50,6 +50,18 @@ docker run --runtime nvidia --gpus 2 \
         --model meta-llama/Llama-3.2-1B-Instruct --dtype=half
 ```
 
+For a lightweight setup you can run [Ollama](https://ollama.com/) locally:
+
+```
+ollama serve &
+```
+
+Download a model with `ollama pull llama3` (or any model you like) and use these settings in the extension:
+
+- **API Type**: `Ollama (local)`
+- **API URL**: `http://localhost:11434`
+- **Model Name**: name of the model you pulled (e.g. `llama3`)
+
 If you want to use an LLM from Hugging Face API Inference, you can use the following:
 
 ```
