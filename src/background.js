@@ -32,8 +32,6 @@ async function sendToAPI(content) {
           throw new Error('Model name is not configured. Please open settings and configure the model name.');
         }
         apiUrl = `https://api-inference.huggingface.co/models/${settings.modelName}`;
-      } else if (settings.apiType === 'ollama') {
-        apiUrl = apiUrl || 'http://localhost:11434';
       } else if (!apiUrl) {
         throw new Error('API URL is not configured. Please open settings and configure the API URL.');
       }
@@ -44,8 +42,7 @@ async function sendToAPI(content) {
 
       const client = new Client({
         apiKey: settings.apiToken,
-        baseURL: apiUrl,
-        apiType: settings.apiType
+        baseURL: apiUrl
       });
 
       const chatCompletion = await client.chat.completions.create({
@@ -60,15 +57,9 @@ async function sendToAPI(content) {
 
       return { success: true, message: chatCompletion.choices[0].message.content.trim() };
     } catch (error) {
-      console.error('API request error:', error);
-      let message = error.message || 'API request failed';
-      if (settings.apiType === 'ollama' && message.includes('403')) {
-        message = '403 Forbidden: Ollama refused connection. ' +
-          'Did you run `ollama serve --cors`?';
-      }
-      return {
-        success: false,
-        error: message
+      return { 
+        success: false, 
+        error: error.message
       };
     } finally {
       // Clean up the pending request
