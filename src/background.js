@@ -61,9 +61,14 @@ async function sendToAPI(content) {
       return { success: true, message: chatCompletion.choices[0].message.content.trim() };
     } catch (error) {
       console.error('API request error:', error);
+      let message = error.message || 'API request failed';
+      if (settings.apiType === 'ollama' && message.includes('403')) {
+        message = '403 Forbidden: Ollama refused connection. ' +
+          'Did you run `ollama serve --cors`?';
+      }
       return {
         success: false,
-        error: error.message
+        error: message
       };
     } finally {
       // Clean up the pending request
